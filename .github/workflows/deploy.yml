@@ -26,16 +26,17 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: Use standalone package.json
+        working-directory: artifacts/hotdog-van
+        run: cp package.gh-pages.json package.json
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        working-directory: artifacts/hotdog-van
+        run: npm install
 
       - name: Build
-        run: pnpm --filter @workspace/hotdog-van exec vite build --config vite.config.gh-pages.ts
+        working-directory: artifacts/hotdog-van
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
