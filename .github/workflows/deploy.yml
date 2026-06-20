@@ -32,11 +32,15 @@ jobs:
 
       - name: Install dependencies
         working-directory: artifacts/hotdog-van
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         working-directory: artifacts/hotdog-van
         run: npm run build
+
+      - name: List dist
+        working-directory: artifacts/hotdog-van
+        run: ls -la dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
