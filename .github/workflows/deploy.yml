@@ -26,9 +26,11 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Use standalone package.json
+      - name: Use standalone configs
         working-directory: artifacts/hotdog-van
-        run: cp package.gh-pages.json package.json
+        run: |
+          cp package.gh-pages.json package.json
+          cp tsconfig.gh-pages.json tsconfig.json
 
       - name: Install dependencies
         working-directory: artifacts/hotdog-van
@@ -37,10 +39,6 @@ jobs:
       - name: Build
         working-directory: artifacts/hotdog-van
         run: npm run build
-
-      - name: List dist
-        working-directory: artifacts/hotdog-van
-        run: ls -la dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
