@@ -24,18 +24,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-        working-directory: artifacts/hotdog-van
 
       - name: Build
-        run: pnpm vite build --config vite.config.gh-pages.ts
-        working-directory: artifacts/hotdog-van
+        run: pnpm --filter @workspace/hotdog-van exec vite build --config vite.config.gh-pages.ts
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
